@@ -35,21 +35,14 @@ std::string get_gpu_and_version(VkPhysicalDevice device)
     VkPhysicalDeviceProperties deviceProperties;
     vkGetPhysicalDeviceProperties(device, &deviceProperties);
 
-    std::string name = deviceProperties.deviceName;
-
     uint32_t versionMajor = VK_VERSION_MAJOR(deviceProperties.apiVersion);
     uint32_t versionMinor = VK_VERSION_MINOR(deviceProperties.apiVersion);
     uint32_t versionPatch = VK_VERSION_PATCH(deviceProperties.apiVersion);
 
-    std::string msg = name + " - Vulkan ";
-    char buffer[256];
-    msg += _itoa(versionMajor, buffer, 10);
-    msg += '.';
-    msg += _itoa(versionMinor, buffer, 10);
-    msg += '.';
-    msg += _itoa(versionPatch, buffer, 10);
+    char buffer[1024];
+    sprintf(buffer, "%s - Vulkan: %d.%d.%d", deviceProperties.deviceName, versionMajor, versionMinor, versionPatch);
 
-    return msg;
+    return std::string(buffer);
 }
 
 /*
