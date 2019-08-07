@@ -12,6 +12,10 @@ if (WIN32)
         add_definitions(-DWINDOWS_MODE)
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
     endif()
+    
+    if (MSVC)
+        add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+    endif()
 endif()
 
 add_executable(vulkan-spy main.cpp)
